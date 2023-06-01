@@ -12,6 +12,7 @@ from compass.ocean.tests.global_ocean.mesh.qu import (
     QUMeshFromConfigStep,
 )
 from compass.ocean.tests.global_ocean.mesh.so12to60 import SO12to60BaseMesh
+from compass.ocean.tests.global_ocean.mesh.fris01to60 import FRIS01to60BaseMesh
 from compass.ocean.tests.global_ocean.mesh.wc14 import WC14BaseMesh
 from compass.ocean.tests.global_ocean.metadata import (
     get_author_and_email_from_git,
@@ -88,6 +89,8 @@ class Mesh(TestCase):
             base_mesh_step = ARRM10to60BaseMesh(self, name=name, subdir=subdir)
         elif mesh_name in ['SO12to60', 'SOwISC12to60']:
             base_mesh_step = SO12to60BaseMesh(self, name=name, subdir=subdir)
+        elif mesh_name in ['FRIS01to60', 'FRISwISC01to60']:
+            base_mesh_step = FRIS01to60BaseMesh(self, name=name, subdir=subdir)
         elif mesh_name.startswith('Kuroshio'):
             base_mesh_step = KuroshioBaseMesh(self, name=name, subdir=subdir)
         elif mesh_name in ['WC14', 'WCwISC14']:
