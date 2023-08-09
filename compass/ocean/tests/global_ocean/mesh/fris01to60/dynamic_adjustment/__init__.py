@@ -4,7 +4,7 @@ from compass.ocean.tests.global_ocean.dynamic_adjustment import (
 from compass.ocean.tests.global_ocean.forward import ForwardStep
 
 
-class SO12to60DynamicAdjustment(DynamicAdjustment):
+class FRIS01to60DynamicAdjustment(DynamicAdjustment):
     """
     A test case performing dynamic adjustment (dissipating fast-moving waves)
     from an initial condition on the SO12to60 MPAS-Ocean mesh
