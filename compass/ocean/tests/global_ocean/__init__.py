@@ -25,6 +25,9 @@ from compass.ocean.tests.global_ocean.mesh.so12to60.dynamic_adjustment import (
 from compass.ocean.tests.global_ocean.mesh.wc14.dynamic_adjustment import (
     WC14DynamicAdjustment,
 )
+from compass.ocean.tests.global_ocean.mesh.fris01to60.dynamic_adjustment import (
+    FRIS01to60DynamicAdjustment,
+)
 from compass.ocean.tests.global_ocean.monthly_output_test import (
     MonthlyOutputTest,
 )
@@ -91,6 +94,14 @@ class GlobalOcean(TestGroup):
                     test_group=self, mesh=mesh_test, init=init_test,
                     time_integrator='split_explicit'))
 
+            dynamic_adjustment_test = FRIS01to60DynamicAdjustment(
+                test_group=self, mesh=mesh_test, init=init_test,
+                time_integrator='split_explicit')
+            self.add_test_case(dynamic_adjustment_test)
+
+        # A test case for making E3SM support files from an existing mesh
+        self.add_test_case(FilesForE3SM(test_group=self))
+
             #dynamic_adjustment_test = DynamicAdjustment(
             #    test_group=self, mesh=mesh_test, init=init_test,
             #    time_integrator=time_integrator)
@@ -100,8 +111,6 @@ class GlobalOcean(TestGroup):
             #        test_group=self, mesh=mesh_test, init=init_test,
             #        dynamic_adjustment=dynamic_adjustment_test))
 
-        # A test case for making E3SM support files from an existing mesh
-        self.add_test_case(FilesForE3SM(test_group=self))
 
     def _add_tests(self, mesh_names, DynamicAdjustment, remap_topography=True,
                    include_rk4=False, include_regression=False,
