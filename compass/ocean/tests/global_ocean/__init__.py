@@ -101,13 +101,13 @@ class GlobalOcean(TestGroup):
                     time_integrator='split_explicit'))
 
             #dynamic_adjustment_test = DynamicAdjustment(
-                test_group=self, mesh=mesh_test, init=init_test,
-                time_integrator=time_integrator)
+            #    test_group=self, mesh=mesh_test, init=init_test,
+            #    time_integrator=time_integrator)
             #self.add_test_case(dynamic_adjustment_test)
             #self.add_test_case(
             #    FilesForE3SM(
-                    test_group=self, mesh=mesh_test, init=init_test,
-                    dynamic_adjustment=dynamic_adjustment_test))
+            #        test_group=self, mesh=mesh_test, init=init_test,
+            #        dynamic_adjustment=dynamic_adjustment_test))
 
         # A test case for making E3SM support files from an existing mesh
         self.add_test_case(FilesForE3SM(test_group=self))
