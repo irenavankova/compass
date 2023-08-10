@@ -28,6 +28,15 @@ from compass.ocean.tests.global_ocean.mesh.wc14.dynamic_adjustment import (
 from compass.ocean.tests.global_ocean.mesh.fris01to60.dynamic_adjustment import (
     FRIS01to60DynamicAdjustment,
 )
+from compass.ocean.tests.global_ocean.mesh.fris02to60.dynamic_adjustment import (
+    FRIS02to60DynamicAdjustment,
+)
+from compass.ocean.tests.global_ocean.mesh.fris04to60.dynamic_adjustment import (
+    FRIS04to60DynamicAdjustment,
+)
+from compass.ocean.tests.global_ocean.mesh.fris08to60.dynamic_adjustment import (
+    FRIS08to60DynamicAdjustment,
+)
 from compass.ocean.tests.global_ocean.monthly_output_test import (
     MonthlyOutputTest,
 )
@@ -95,6 +104,66 @@ class GlobalOcean(TestGroup):
                     time_integrator='split_explicit'))
 
             dynamic_adjustment_test = FRIS01to60DynamicAdjustment(
+                test_group=self, mesh=mesh_test, init=init_test,
+                time_integrator='split_explicit')
+            self.add_test_case(dynamic_adjustment_test)
+
+        for mesh_name in ['FRIS02to60', 'FRISwISC02to60']:
+            mesh_test = Mesh(test_group=self, mesh_name=mesh_name,
+                             remap_topography=True)
+            self.add_test_case(mesh_test)
+
+            init_test = Init(test_group=self, mesh=mesh_test,
+                             initial_condition='WOA23',
+                             with_bgc=False)
+            self.add_test_case(init_test)
+
+            self.add_test_case(
+                PerformanceTest(
+                    test_group=self, mesh=mesh_test, init=init_test,
+                    time_integrator='split_explicit'))
+
+            dynamic_adjustment_test = FRIS02to60DynamicAdjustment(
+                test_group=self, mesh=mesh_test, init=init_test,
+                time_integrator='split_explicit')
+            self.add_test_case(dynamic_adjustment_test)
+
+        for mesh_name in ['FRIS04to60', 'FRISwISC04to60']:
+            mesh_test = Mesh(test_group=self, mesh_name=mesh_name,
+                             remap_topography=True)
+            self.add_test_case(mesh_test)
+
+            init_test = Init(test_group=self, mesh=mesh_test,
+                             initial_condition='WOA23',
+                             with_bgc=False)
+            self.add_test_case(init_test)
+
+            self.add_test_case(
+                PerformanceTest(
+                    test_group=self, mesh=mesh_test, init=init_test,
+                    time_integrator='split_explicit'))
+
+            dynamic_adjustment_test = FRIS04to60DynamicAdjustment(
+                test_group=self, mesh=mesh_test, init=init_test,
+                time_integrator='split_explicit')
+            self.add_test_case(dynamic_adjustment_test)
+
+        for mesh_name in ['FRIS08to60', 'FRISwISC08to60']:
+            mesh_test = Mesh(test_group=self, mesh_name=mesh_name,
+                             remap_topography=True)
+            self.add_test_case(mesh_test)
+
+            init_test = Init(test_group=self, mesh=mesh_test,
+                             initial_condition='WOA23',
+                             with_bgc=False)
+            self.add_test_case(init_test)
+
+            self.add_test_case(
+                PerformanceTest(
+                    test_group=self, mesh=mesh_test, init=init_test,
+                    time_integrator='split_explicit'))
+
+            dynamic_adjustment_test = FRIS08to60DynamicAdjustment(
                 test_group=self, mesh=mesh_test, init=init_test,
                 time_integrator='split_explicit')
             self.add_test_case(dynamic_adjustment_test)
