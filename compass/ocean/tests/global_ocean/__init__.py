@@ -96,10 +96,26 @@ class GlobalOcean(TestGroup):
         # Kuroshio meshes without ice-shelf cavities
         self._add_tests(mesh_names=['Kuroshio12to60', 'Kuroshio8to60'],
                         DynamicAdjustment=KuroshioDynamicAdjustment)
+        '''
+        # FRIS01to60: with and without cavities
+        self._add_tests(mesh_names=['FRIS01to60', 'FRISwISC01to60'],
+                        DynamicAdjustment=KuroshioDynamicAdjustment)
 
+        # FRIS01to60: with and without cavities
+        self._add_tests(mesh_names=['FRIS02to60', 'FRISwISC02to60'],
+                        DynamicAdjustment=KuroshioDynamicAdjustment)
+
+        # FRIS01to60: with and without cavities
+        self._add_tests(mesh_names=['FRIS04to60', 'FRISwISC04to60'],
+                        DynamicAdjustment=KuroshioDynamicAdjustment)
+
+        # FRIS01to60: with and without cavities
+        self._add_tests(mesh_names=['FRIS08to60', 'FRISwISC08to60'],
+                        DynamicAdjustment=KuroshioDynamicAdjustment)
+        '''
         for mesh_name in ['FRIS01to60', 'FRISwISC01to60']:
             mesh_test = Mesh(test_group=self, mesh_name=mesh_name,
-                             remap_topography=True)
+                             high_res_topography=True)
             self.add_test_case(mesh_test)
 
             init_test = Init(test_group=self, mesh=mesh_test,
@@ -119,7 +135,7 @@ class GlobalOcean(TestGroup):
 
         for mesh_name in ['FRIS02to60', 'FRISwISC02to60']:
             mesh_test = Mesh(test_group=self, mesh_name=mesh_name,
-                             remap_topography=True)
+                             high_res_topography=True)
             self.add_test_case(mesh_test)
 
             init_test = Init(test_group=self, mesh=mesh_test,
@@ -139,7 +155,7 @@ class GlobalOcean(TestGroup):
 
         for mesh_name in ['FRIS04to60', 'FRISwISC04to60']:
             mesh_test = Mesh(test_group=self, mesh_name=mesh_name,
-                             remap_topography=True)
+                             high_res_topography=True)
             self.add_test_case(mesh_test)
 
             init_test = Init(test_group=self, mesh=mesh_test,
@@ -159,7 +175,7 @@ class GlobalOcean(TestGroup):
 
         for mesh_name in ['FRIS08to60', 'FRISwISC08to60']:
             mesh_test = Mesh(test_group=self, mesh_name=mesh_name,
-                             remap_topography=True)
+                             high_res_topography=True)
             self.add_test_case(mesh_test)
 
             init_test = Init(test_group=self, mesh=mesh_test,
