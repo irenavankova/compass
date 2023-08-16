@@ -99,19 +99,19 @@ class GlobalOcean(TestGroup):
         '''
         # FRIS01to60: with and without cavities
         self._add_tests(mesh_names=['FRIS01to60', 'FRISwISC01to60'],
-                        DynamicAdjustment=KuroshioDynamicAdjustment)
+                        DynamicAdjustment=FRIS01to60DynamicAdjustment)
 
         # FRIS01to60: with and without cavities
         self._add_tests(mesh_names=['FRIS02to60', 'FRISwISC02to60'],
-                        DynamicAdjustment=KuroshioDynamicAdjustment)
+                        DynamicAdjustment=FRIS02to60DynamicAdjustment)
 
         # FRIS01to60: with and without cavities
         self._add_tests(mesh_names=['FRIS04to60', 'FRISwISC04to60'],
-                        DynamicAdjustment=KuroshioDynamicAdjustment)
+                        DynamicAdjustment=FRIS04to60DynamicAdjustment)
 
         # FRIS01to60: with and without cavities
         self._add_tests(mesh_names=['FRIS08to60', 'FRISwISC08to60'],
-                        DynamicAdjustment=KuroshioDynamicAdjustment)
+                        DynamicAdjustment=FRIS08to60DynamicAdjustment)
         '''
         for mesh_name in ['FRIS01to60', 'FRISwISC01to60']:
             mesh_test = Mesh(test_group=self, mesh_name=mesh_name,
@@ -119,8 +119,7 @@ class GlobalOcean(TestGroup):
             self.add_test_case(mesh_test)
 
             init_test = Init(test_group=self, mesh=mesh_test,
-                             initial_condition='WOA23',
-                             with_bgc=False)
+                             initial_condition='WOA23')
             self.add_test_case(init_test)
 
             self.add_test_case(
@@ -139,8 +138,7 @@ class GlobalOcean(TestGroup):
             self.add_test_case(mesh_test)
 
             init_test = Init(test_group=self, mesh=mesh_test,
-                             initial_condition='WOA23',
-                             with_bgc=False)
+                             initial_condition='WOA23')
             self.add_test_case(init_test)
 
             self.add_test_case(
@@ -159,8 +157,7 @@ class GlobalOcean(TestGroup):
             self.add_test_case(mesh_test)
 
             init_test = Init(test_group=self, mesh=mesh_test,
-                             initial_condition='WOA23',
-                             with_bgc=False)
+                             initial_condition='WOA23')
             self.add_test_case(init_test)
 
             self.add_test_case(
@@ -179,8 +176,7 @@ class GlobalOcean(TestGroup):
             self.add_test_case(mesh_test)
 
             init_test = Init(test_group=self, mesh=mesh_test,
-                             initial_condition='WOA23',
-                             with_bgc=False)
+                             initial_condition='WOA23')
             self.add_test_case(init_test)
 
             self.add_test_case(
