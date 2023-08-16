@@ -79,7 +79,7 @@ class FRIS08to60DynamicAdjustment(DynamicAdjustment):
 
         step.add_output_file(filename='../{}'.format(restart_filenames[0]))
         self.add_step(step)
-        '''
+
         # second step
         step_name = 'damped_adjustment_2'
         step = ForwardStep(test_case=self, mesh=mesh, init=init,
@@ -88,8 +88,8 @@ class FRIS08to60DynamicAdjustment(DynamicAdjustment):
 
         namelist_options = {
             'config_run_duration': "'00-00-08_00:00:00'",
-            'config_dt': "'00:05:00'",
-            'config_btr_dt': "'00:00:10'",
+            'config_dt': "'00:03:20'",
+            'config_btr_dt': "'00:00:6.7'",
             'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
             'config_Rayleigh_damping_coeff': '1.0e-5',
             'config_do_restart': '.true.',
@@ -106,7 +106,7 @@ class FRIS08to60DynamicAdjustment(DynamicAdjustment):
         step.add_input_file(filename='../{}'.format(restart_filenames[0]))
         step.add_output_file(filename='../{}'.format(restart_filenames[1]))
         self.add_step(step)
-
+        '''
         # third step
         step_name = 'damped_adjustment_3'
         step = ForwardStep(test_case=self, mesh=mesh, init=init,
