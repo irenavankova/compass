@@ -88,8 +88,8 @@ class FRIS04to60DynamicAdjustment(DynamicAdjustment):
 
         namelist_options = {
             'config_run_duration': "'00-00-08_00:00:00'",
-            'config_dt': "'00:05:00'",
-            'config_btr_dt': "'00:00:10'",
+            'config_dt': "'00:01:40'",
+            'config_btr_dt': "'00:00:3.3'",
             'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
             'config_Rayleigh_damping_coeff': '1.0e-5',
             'config_do_restart': '.true.',
@@ -115,8 +115,8 @@ class FRIS04to60DynamicAdjustment(DynamicAdjustment):
 
         namelist_options = {
             'config_run_duration': "'00-00-10_00:00:00'",
-            'config_dt': "'00:05:00'",
-            'config_btr_dt': "'00:00:10'",
+            'config_dt': "'00:01:40'",
+            'config_btr_dt': "'00:00:3.3'",
             'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
             'config_Rayleigh_damping_coeff': '1.0e-6',
             'config_do_restart': '.true.',
@@ -142,8 +142,8 @@ class FRIS04to60DynamicAdjustment(DynamicAdjustment):
 
         namelist_options = {
             'config_run_duration': "'00-00-20_00:00:00'",
-            'config_dt': "'00:05:00'",
-            'config_btr_dt': "'00:00:10'",
+            'config_dt': "'00:01:40'",
+            'config_btr_dt': "'00:00:3.3'",
             'config_do_restart': '.true.',
             'config_start_time': "'{}'".format(restart_times[2])}
         namelist_options.update(shared_options)
@@ -167,8 +167,8 @@ class FRIS04to60DynamicAdjustment(DynamicAdjustment):
 
         namelist_options = {
             'config_run_duration': "'00-00-10_00:00:00'",
-            'config_dt': "'00:10:00'",
-            'config_btr_dt': "'00:00:15'",
+            'config_dt': "'00:03:20'",
+            'config_btr_dt': "'00:00:5'",
             'config_do_restart': '.true.',
             'config_start_time': "'{}'".format(restart_times[3])}
         namelist_options.update(shared_options)
