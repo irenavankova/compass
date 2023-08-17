@@ -96,20 +96,20 @@ class GlobalOcean(TestGroup):
         # Kuroshio meshes without ice-shelf cavities
         self._add_tests(mesh_names=['Kuroshio12to60', 'Kuroshio8to60'],
                         DynamicAdjustment=KuroshioDynamicAdjustment)
-        '''
+
         # FRIS01to60: with and without cavities
         self._add_tests(mesh_names=['FRIS01to60', 'FRISwISC01to60'],
                         DynamicAdjustment=FRIS01to60DynamicAdjustment)
 
-        # FRIS01to60: with and without cavities
+        # FRIS02to60: with and without cavities
         self._add_tests(mesh_names=['FRIS02to60', 'FRISwISC02to60'],
                         DynamicAdjustment=FRIS02to60DynamicAdjustment)
 
-        # FRIS01to60: with and without cavities
+        # FRIS04to60: with and without cavities
         self._add_tests(mesh_names=['FRIS04to60', 'FRISwISC04to60'],
                         DynamicAdjustment=FRIS04to60DynamicAdjustment)
 
-        # FRIS01to60: with and without cavities
+        # FRIS08to60: with and without cavities
         self._add_tests(mesh_names=['FRIS08to60', 'FRISwISC08to60'],
                         DynamicAdjustment=FRIS08to60DynamicAdjustment)
         '''
@@ -188,18 +188,10 @@ class GlobalOcean(TestGroup):
                 test_group=self, mesh=mesh_test, init=init_test,
                 time_integrator='split_explicit')
             self.add_test_case(dynamic_adjustment_test)
+        '''
 
         # A test case for making E3SM support files from an existing mesh
         self.add_test_case(FilesForE3SM(test_group=self))
-
-            #dynamic_adjustment_test = DynamicAdjustment(
-            #    test_group=self, mesh=mesh_test, init=init_test,
-            #    time_integrator=time_integrator)
-            #self.add_test_case(dynamic_adjustment_test)
-            #self.add_test_case(
-            #    FilesForE3SM(
-            #        test_group=self, mesh=mesh_test, init=init_test,
-            #        dynamic_adjustment=dynamic_adjustment_test))
 
 
     def _add_tests(self, mesh_names, DynamicAdjustment,
