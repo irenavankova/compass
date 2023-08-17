@@ -79,7 +79,7 @@ class FRIS04to60DynamicAdjustment(DynamicAdjustment):
 
         step.add_output_file(filename='../{}'.format(restart_filenames[0]))
         self.add_step(step)
-        '''
+
         # second step
         step_name = 'damped_adjustment_2'
         step = ForwardStep(test_case=self, mesh=mesh, init=init,
@@ -186,4 +186,4 @@ class FRIS04to60DynamicAdjustment(DynamicAdjustment):
         self.add_step(step)
 
         self.restart_filenames = restart_filenames
-        '''
+
