@@ -115,10 +115,10 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
 
         namelist_options = {
             'config_run_duration': "'00-00-10_00:00:00'",
-            'config_dt': "'00:00:25'",
-            'config_btr_dt': "'00:00:0.8'",
+            'config_dt': "'00:00:30'",
+            'config_btr_dt': "'00:00:1'",
             'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
-            'config_Rayleigh_damping_coeff': '1.0e-6',
+            'config_Rayleigh_damping_coeff': '5.0e-6',
             'config_do_restart': '.true.',
             'config_start_time': "'{}'".format(restart_times[1])}
         namelist_options.update(shared_options)
@@ -136,6 +136,33 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
 
         # fourth step
         step_name = 'damped_adjustment_4'
+        step = ForwardStep(test_case=self, mesh=mesh, init=init,
+                           time_integrator=time_integrator, name=step_name,
+                           subdir=step_name, get_dt_from_min_res=False)
+
+        namelist_options = {
+            'config_run_duration': "'00-00-10_00:00:00'",
+            'config_dt': "'00:00:30'",
+            'config_btr_dt': "'00:00:1'",
+            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
+            'config_Rayleigh_damping_coeff': '1.0e-6',
+            'config_do_restart': '.true.',
+            'config_start_time': "'{}'".format(restart_times[1])}
+        namelist_options.update(shared_options)
+        step.add_namelist_options(namelist_options)
+
+        stream_replacements = {
+            'output_interval': '00-00-10_00:00:00',
+            'restart_interval': '00-00-10_00:00:00'}
+        step.add_streams_file(module, 'streams.template',
+                              template_replacements=stream_replacements)
+
+        step.add_input_file(filename='../{}'.format(restart_filenames[1]))
+        step.add_output_file(filename='../{}'.format(restart_filenames[2]))
+        self.add_step(step)
+
+        # fifth step
+        step_name = 'damped_adjustment_5'
         step = ForwardStep(test_case=self, mesh=mesh, init=init,
                            time_integrator=time_integrator, name=step_name,
                            subdir=step_name, get_dt_from_min_res=False)
