@@ -147,7 +147,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
             'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
             'config_Rayleigh_damping_coeff': '1.0e-6',
             'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[1])}
+            'config_start_time': "'{}'".format(restart_times[2])}
         namelist_options.update(shared_options)
         step.add_namelist_options(namelist_options)
 
@@ -172,7 +172,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
             'config_dt': "'00:00:30'",
             'config_btr_dt': "'00:00:1'",
             'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[2])}
+            'config_start_time': "'{}'".format(restart_times[3])}
         namelist_options.update(shared_options)
         step.add_namelist_options(namelist_options)
 
@@ -197,7 +197,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
             'config_dt': "'00:01:00'",
             'config_btr_dt': "'00:00:1.3'",
             'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[3])}
+            'config_start_time': "'{}'".format(restart_times[4])}
         namelist_options.update(shared_options)
         step.add_namelist_options(namelist_options)
 
