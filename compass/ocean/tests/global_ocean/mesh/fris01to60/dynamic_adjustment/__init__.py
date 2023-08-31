@@ -37,9 +37,14 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
             raise ValueError('{} dynamic adjustment not defined for {}'.format(
                 mesh.mesh_name, time_integrator))
 
+        #restart_times = ['0001-01-03_00:00:00', '0001-01-11_00:00:00',
+        #                 '0001-01-21_00:00:00', '0001-01-31_00:00:00',
+        #                 '0001-02-20_00:00:00', '0001-03-02_00:00:00']
+
         restart_times = ['0001-01-03_00:00:00', '0001-01-11_00:00:00',
-                         '0001-01-21_00:00:00', '0001-01-31_00:00:00',
+                         '0001-01-21_00:00:00', '0001-01-21_16:24:00','0001-01-21_17:24:00',
                          '0001-02-20_00:00:00', '0001-03-02_00:00:00']
+
         restart_filenames = [
             'restarts/rst.{}.nc'.format(restart_time.replace(':', '.'))
             for restart_time in restart_times]
@@ -141,9 +146,9 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
                            subdir=step_name, get_dt_from_min_res=False)
 
         namelist_options = {
-            'config_run_duration': "'00-00-10_00:00:00'",
-            'config_dt': "'00:00:15'",
-            'config_btr_dt': "'00:00:0.5'",
+            'config_run_duration': "'00-00-00_16:24:00'",
+            'config_dt': "'00:00:30'",
+            'config_btr_dt': "'00:00:1'",
             'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
             'config_Rayleigh_damping_coeff': '1.0e-6',
             'config_do_restart': '.true.',
@@ -152,13 +157,40 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         step.add_namelist_options(namelist_options)
 
         stream_replacements = {
-            'output_interval': '00-00-10_00:00:00',
-            'restart_interval': '00-00-10_00:00:00'}
+            'output_interval': '00-00-00_16:24:00',
+            'restart_interval': '00-00-00_16:24:00'}
         step.add_streams_file(module, 'streams.template',
                               template_replacements=stream_replacements)
 
         step.add_input_file(filename='../{}'.format(restart_filenames[2]))
         step.add_output_file(filename='../{}'.format(restart_filenames[3]))
+        self.add_step(step)
+
+        # debugging step
+        step_name = 'damped_adjustment_4debug'
+        step = ForwardStep(test_case=self, mesh=mesh, init=init,
+                           time_integrator=time_integrator, name=step_name,
+                           subdir=step_name, get_dt_from_min_res=False)
+
+        namelist_options = {
+            'config_run_duration': "'00-00-00_01:00:00'",
+            'config_dt': "'00:00:15'",
+            'config_btr_dt': "'00:00:1'",
+            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
+            'config_Rayleigh_damping_coeff': '1.0e-6',
+            'config_do_restart': '.true.',
+            'config_start_time': "'{}'".format(restart_times[3])}
+        namelist_options.update(shared_options)
+        step.add_namelist_options(namelist_options)
+
+        stream_replacements = {
+            'output_interval': '00-00-00_00:01:00',
+            'restart_interval': '00-00-00_01:00:00'}
+        step.add_streams_file(module, 'streams.template',
+                              template_replacements=stream_replacements)
+
+        step.add_input_file(filename='../{}'.format(restart_filenames[3]))
+        step.add_output_file(filename='../{}'.format(restart_filenames[4]))
         self.add_step(step)
 
         # fifth step
@@ -172,7 +204,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
             'config_dt': "'00:00:25'",
             'config_btr_dt': "'00:00:1'",
             'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[3])}
+            'config_start_time': "'{}'".format(restart_times[4])}
         namelist_options.update(shared_options)
         step.add_namelist_options(namelist_options)
 
@@ -182,8 +214,8 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         step.add_streams_file(module, 'streams.template',
                               template_replacements=stream_replacements)
 
-        step.add_input_file(filename='../{}'.format(restart_filenames[3]))
-        step.add_output_file(filename='../{}'.format(restart_filenames[4]))
+        step.add_input_file(filename='../{}'.format(restart_filenames[4]))
+        step.add_output_file(filename='../{}'.format(restart_filenames[5]))
         self.add_step(step)
 
         # final step
@@ -197,7 +229,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
             'config_dt': "'00:01:00'",
             'config_btr_dt': "'00:00:1.3'",
             'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[4])}
+            'config_start_time': "'{}'".format(restart_times[5])}
         namelist_options.update(shared_options)
         step.add_namelist_options(namelist_options)
 
@@ -207,8 +239,8 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         step.add_streams_file(module, 'streams.template',
                               template_replacements=stream_replacements)
 
-        step.add_input_file(filename='../{}'.format(restart_filenames[4]))
-        step.add_output_file(filename='../{}'.format(restart_filenames[5]))
+        step.add_input_file(filename='../{}'.format(restart_filenames[5]))
+        step.add_output_file(filename='../{}'.format(restart_filenames[6]))
         step.add_output_file(filename='output.nc')
         self.add_step(step)
 
