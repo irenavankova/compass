@@ -42,7 +42,8 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         #                 '0001-02-20_00:00:00', '0001-03-02_00:00:00']
 
         restart_times = ['0001-01-03_00:00:00', '0001-01-11_00:00:00',
-                         '0001-01-21_00:00:00', '0001-01-21_16:24:00','0001-01-21_17:24:00',
+                         '0001-01-21_00:00:00', '0001-01-21_16:24:00',
+                         '0001-01-21_17:24:00', '0001-01-31_00:00:00',
                          '0001-02-20_00:00:00', '0001-03-02_00:00:00']
 
         restart_filenames = [
@@ -140,6 +141,8 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         self.add_step(step)
 
         # fourth step
+        #ERROR: Stream'../restarts/rst.0001-01-20_19.36.00.nc
+
         step_name = 'damped_adjustment_4'
         step = ForwardStep(test_case=self, mesh=mesh, init=init,
                            time_integrator=time_integrator, name=step_name,
