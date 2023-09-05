@@ -40,7 +40,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         restart_times = ['0001-01-03_00:00:00', '0001-01-11_00:00:00',
                          '0001-01-21_00:00:00', '0001-01-21_16:00:00',
                          '0001-01-21_17:00:00', '0001-01-22_00:00:00',
-                         '0001-01-22_11:00:00', '0001-01-31_00:00:00',
+                         '0001-01-22_11:00:00', '0001-01-22_11:45:00', '0001-01-31_00:00:00',
                          '0001-02-20_00:00:00', '0001-03-02_00:00:00']
 
         #restart_times = ['0001-01-03_00:00:00', '0001-01-11_00:00:00',
@@ -277,6 +277,33 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
 
         step.add_input_file(filename='../{}'.format(restart_filenames[6]))
         step.add_output_file(filename='../{}'.format(restart_filenames[7]))
+        self.add_step(step)
+
+        # debugging step e
+        step_name = 'damped_adjustment_4debuge'
+        step = ForwardStep(test_case=self, mesh=mesh, init=init,
+                           time_integrator=time_integrator, name=step_name,
+                           subdir=step_name, get_dt_from_min_res=False)
+
+        namelist_options = {
+            'config_run_duration': "'00-00-00_00:15:00'",
+            'config_dt': "'00:00:30'",
+            'config_btr_dt': "'00:00:1'",
+            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
+            'config_Rayleigh_damping_coeff': '1.0e-6',
+            'config_do_restart': '.true.',
+            'config_start_time': "'{}'".format(restart_times[7])}
+        namelist_options.update(shared_options)
+        step.add_namelist_options(namelist_options)
+
+        stream_replacements = {
+            'output_interval': '00-00-00_00:00:30',
+            'restart_interval': '00-00-00_00:15:00'}
+        step.add_streams_file(module, 'streams.template',
+                              template_replacements=stream_replacements)
+
+        step.add_input_file(filename='../{}'.format(restart_filenames[7]))
+        step.add_output_file(filename='../{}'.format(restart_filenames[8]))
         self.add_step(step)
 
         # fifth step
