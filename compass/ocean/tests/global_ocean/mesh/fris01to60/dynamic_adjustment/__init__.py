@@ -280,15 +280,17 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         self.add_step(step)
 
         # debugging step e
-        step_name = 'damped_adjustment_4debuge'
+        step_name = 'damped_adjustment_4debuge05'
         step = ForwardStep(test_case=self, mesh=mesh, init=init,
                            time_integrator=time_integrator, name=step_name,
                            subdir=step_name, get_dt_from_min_res=False)
 
         namelist_options = {
             'config_run_duration': "'00-00-00_00:15:00'",
-            'config_dt': "'00:00:30'",
-            'config_btr_dt': "'00:00:1'",
+            #'config_dt': "'00:00:30'", #debug e
+            'config_dt': "'00:00:5'",
+            #'config_btr_dt': "'00:00:1'",
+            'config_btr_dt': "'00:00:0.2'",
             'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
             'config_Rayleigh_damping_coeff': '1.0e-6',
             'config_do_restart': '.true.',
