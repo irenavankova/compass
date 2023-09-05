@@ -56,7 +56,6 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
              'config_AM_globalStats_write_on_startup': '.true.',
              'config_use_activeTracers_surface_restoring': '.true.'}
 
-        iref = 0
         # first step
         step_name = 'damped_adjustment_1'
         step = ForwardStep(test_case=self, mesh=mesh, init=init,
@@ -78,10 +77,10 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         step.add_streams_file(module, 'streams.template',
                               template_replacements=stream_replacements)
 
-        step.add_output_file(filename='../{}'.format(restart_filenames[iref]))
+        step.add_output_file(filename='../{}'.format(restart_filenames[0]))
         self.add_step(step)
 
-        iref = iref + 1
+        iref = 0
         # second step
         step_name = 'damped_adjustment_2'
         step = ForwardStep(test_case=self, mesh=mesh, init=init,
