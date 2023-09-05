@@ -39,7 +39,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
 
         restart_times = ['0001-01-11_00:00:00', '0001-01-21_00:00:00',
                          '0001-02-10_00:00:00', '0001-03-02_00:00:00',
-                         '0001-03-22_00:00:00','0001-04-01_00:00:00',]
+                         '0001-03-22_00:00:00', '0001-04-01_00:00:00']
         restart_filenames = [
             'restarts/rst.{}.nc'.format(restart_time.replace(':', '.'))
             for restart_time in restart_times]
