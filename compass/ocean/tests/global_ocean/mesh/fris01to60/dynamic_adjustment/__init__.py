@@ -37,7 +37,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
             raise ValueError('{} dynamic adjustment not defined for {}'.format(
                 mesh.mesh_name, time_integrator))
 
-        restart_times = ['0001-01-11_00:00:00', '0001-01-21_00:00:00',
+        restart_times = ['0001-01-11_00:00:00', '0001-01-21_00:00:00', '0001-01-31_00:00:00',
                          '0001-02-10_00:00:00', '0001-03-02_00:00:00',
                          '0001-03-22_00:00:00', '0001-04-01_00:00:00']
         restart_filenames = [
@@ -116,7 +116,35 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
                            subdir=step_name, get_dt_from_min_res=False)
 
         namelist_options = {
-            'config_run_duration': "'00-00-20_00:00:00'",
+            'config_run_duration': "'00-00-10_00:00:00'",
+            'config_dt': "'00:00:30'",
+            'config_btr_dt': "'00:00:0.7'",
+            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
+            'config_Rayleigh_damping_coeff': '5.0e-6',
+            'config_do_restart': '.true.',
+            'config_start_time': "'{}'".format(restart_times[iref])}
+        namelist_options.update(shared_options)
+        step.add_namelist_options(namelist_options)
+
+        stream_replacements = {
+            'output_interval': '00-00-10_00:00:00',
+            'restart_interval': '00-00-10_00:00:00'}
+        step.add_streams_file(module, 'streams.template',
+                              template_replacements=stream_replacements)
+
+        step.add_input_file(filename='../{}'.format(restart_filenames[iref]))
+        step.add_output_file(filename='../{}'.format(restart_filenames[iref + 1]))
+        self.add_step(step)
+
+        iref = iref + 1
+        # third step extension
+        step_name = 'damped_adjustment_3ext'
+        step = ForwardStep(test_case=self, mesh=mesh, init=init,
+                           time_integrator=time_integrator, name=step_name,
+                           subdir=step_name, get_dt_from_min_res=False)
+
+        namelist_options = {
+            'config_run_duration': "'00-00-10_00:00:00'",
             'config_dt': "'00:00:30'",
             'config_btr_dt': "'00:00:0.7'",
             'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
@@ -155,8 +183,8 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         step.add_namelist_options(namelist_options)
 
         stream_replacements = {
-            'output_interval': '00-00-10_00:00:00',
-            'restart_interval': '00-00-10_00:00:00'}
+            'output_interval': '00-00-05_00:00:00',
+            'restart_interval': '00-00-05_00:00:00'}
         step.add_streams_file(module, 'streams.template',
                               template_replacements=stream_replacements)
 
@@ -181,8 +209,8 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         step.add_namelist_options(namelist_options)
 
         stream_replacements = {
-            'output_interval': '00-00-10_00:00:00',
-            'restart_interval': '00-00-10_00:00:00'}
+            'output_interval': '00-00-05_00:00:00',
+            'restart_interval': '00-00-05_00:00:00'}
         step.add_streams_file(module, 'streams.template',
                               template_replacements=stream_replacements)
 
@@ -207,8 +235,8 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         step.add_namelist_options(namelist_options)
 
         stream_replacements = {
-            'output_interval': '00-00-10_00:00:00',
-            'restart_interval': '00-00-10_00:00:00'}
+            'output_interval': '00-00-05_00:00:00',
+            'restart_interval': '00-00-05_00:00:00'}
         step.add_streams_file(module, 'streams.template',
                               template_replacements=stream_replacements)
 
