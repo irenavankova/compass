@@ -38,9 +38,15 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
                 mesh.mesh_name, time_integrator))
 
         restart_times = ['0001-01-11_00:00:00', '0001-01-21_00:00:00', '0001-01-31_00:00:00',
-                         '0001-02-10_00:00:00', '0001-02-10_09:00:00', '0001-02-10_09:45:00',
+                         '0001-02-10_00:00:00', '0001-02-20_00:00:00',
                          '0001-03-02_00:00:00',
                          '0001-03-22_00:00:00', '0001-04-01_00:00:00']
+        '''
+        restart_times = ['0001-01-11_00:00:00', '0001-01-21_00:00:00', '0001-01-31_00:00:00',
+                         '0001-02-10_00:00:00', '0001-02-10_09:00:00', '0001-02-11_00:00:00',
+                         '0001-03-02_00:00:00',
+                         '0001-03-22_00:00:00', '0001-04-01_00:00:00']
+        '''
         restart_filenames = [
             'restarts/rst.{}.nc'.format(restart_time.replace(':', '.'))
             for restart_time in restart_times]
@@ -195,13 +201,13 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
 
         iref = iref + 1
         # fourth step debug
-        step_name = 'damped_adjustment_4debug1'
+        step_name = 'damped_adjustment_4debug1_15h'
         step = ForwardStep(test_case=self, mesh=mesh, init=init,
                            time_integrator=time_integrator, name=step_name,
                            subdir=step_name, get_dt_from_min_res=False)
 
         namelist_options = {
-            'config_run_duration': "'00-00-00_00:45:00'",
+            'config_run_duration': "'00-00-00_15:00:00'",
             'config_dt': "'00:00:30'",
             'config_btr_dt': "'00:00:0.7'",
             'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
@@ -212,8 +218,8 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         step.add_namelist_options(namelist_options)
 
         stream_replacements = {
-            'output_interval': '00-00-00_00:15:00',
-            'restart_interval': '00-00-00_00:15:00'}
+            'output_interval': '00-00-00_01:00:00',
+            'restart_interval': '00-00-00_01:00:00'}
         step.add_streams_file(module, 'streams.template',
                               template_replacements=stream_replacements)
 
