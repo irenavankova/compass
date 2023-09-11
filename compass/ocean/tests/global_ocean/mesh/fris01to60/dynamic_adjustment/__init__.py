@@ -45,8 +45,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
         restart_times = ['0001-01-11_00:00:00', '0001-01-21_00:00:00', '0001-01-31_00:00:00',
                          '0001-02-10_00:00:00', '0001-02-10_09:00:00', '0001-02-11_00:00:00',
                          '0001-02-11_10:00:00', '0001-02-11_10:45:00', '0001-02-11_11:00:00',
-                         '0001-02-12_00:00:00', '0001-03-02_00:00:00',
-                         '0001-03-22_00:00:00', '0001-04-01_00:00:00']
+                         '0001-02-12_00:00:00']
 
         restart_filenames = [
             'restarts/rst.{}.nc'.format(restart_time.replace(':', '.'))
@@ -174,285 +173,42 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
 
         iref = iref + 1
         #4 fourth step
-        step_name = 'damped_adjustment_4'
-        step = ForwardStep(test_case=self, mesh=mesh, init=init,
-                           time_integrator=time_integrator, name=step_name,
-                           subdir=step_name, get_dt_from_min_res=False)
-
-        namelist_options = {
-            'config_run_duration': "'00-00-00_09:00:00'",
-            'config_dt': "'00:00:30'",
-            'config_btr_dt': "'00:00:0.7'",
-            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
-            'config_Rayleigh_damping_coeff': '1.0e-6',
-            'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[iref])}
-        namelist_options.update(shared_options)
-        step.add_namelist_options(namelist_options)
-
-        stream_replacements = {
-            'output_interval': '00-00-00_01:00:00',
-            'restart_interval': '00-00-00_01:00:00'}
-        step.add_streams_file(module, 'streams.template',
-                              template_replacements=stream_replacements)
-
-        step.add_input_file(filename='../{}'.format(restart_filenames[iref]))
-        step.add_output_file(filename='../{}'.format(restart_filenames[iref+1]))
-        self.add_step(step)
-
-        iref = iref + 1
-        #5 fourth step debug
-        step_name = 'damped_adjustment_4debug1_15h'
-        step = ForwardStep(test_case=self, mesh=mesh, init=init,
-                           time_integrator=time_integrator, name=step_name,
-                           subdir=step_name, get_dt_from_min_res=False)
-
-        namelist_options = {
-            'config_run_duration': "'00-00-00_15:00:00'",
-            'config_dt': "'00:00:30'",
-            'config_btr_dt': "'00:00:0.7'",
-            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
-            'config_Rayleigh_damping_coeff': '1.0e-6',
-            'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[iref])}
-        namelist_options.update(shared_options)
-        step.add_namelist_options(namelist_options)
-
-        stream_replacements = {
-            'output_interval': '00-00-00_01:00:00',
-            'restart_interval': '00-00-00_01:00:00'}
-        step.add_streams_file(module, 'streams.template',
-                              template_replacements=stream_replacements)
-
-        step.add_input_file(filename='../{}'.format(restart_filenames[iref]))
-        step.add_output_file(filename='../{}'.format(restart_filenames[iref + 1]))
-        self.add_step(step)
-
-        '''
-        iref = iref + 1
-        #6 fourth step debug
-        step_name = 'damped_adjustment_4debug2'
-        # Last time step before crash : Doing timestep 0001-02-11_10:46:30
-        step = ForwardStep(test_case=self, mesh=mesh, init=init,
-                           time_integrator=time_integrator, name=step_name,
-                           subdir=step_name, get_dt_from_min_res=False)
-
-        namelist_options = {
-            #'config_run_duration': "'00-00-19_00:00:00'",
-            'config_run_duration': "'00-00-01_00:00:00'",
-            'config_dt': "'00:00:30'",
-            'config_btr_dt': "'00:00:0.7'",
-            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
-            'config_Rayleigh_damping_coeff': '1.0e-6',
-            'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[iref])}
-        namelist_options.update(shared_options)
-        step.add_namelist_options(namelist_options)
-
-        stream_replacements = {
-            'output_interval': '00-00-01_00:00:00',
-            'restart_interval': '00-00-01_00:00:00'}
-        step.add_streams_file(module, 'streams.template',
-                              template_replacements=stream_replacements)
-
-        step.add_input_file(filename='../{}'.format(restart_filenames[iref]))
-        step.add_output_file(filename='../{}'.format(restart_filenames[iref + 1]))
-        self.add_step(step)
-        '''
-
-        iref = iref + 1
-        #7 fourth step debug
-        step_name = 'damped_adjustment_4debug2_10h'
-        step = ForwardStep(test_case=self, mesh=mesh, init=init,
-                           time_integrator=time_integrator, name=step_name,
-                           subdir=step_name, get_dt_from_min_res=False)
-
-        namelist_options = {
-            'config_run_duration': "'00-00-00_10:00:00'",
-            'config_dt': "'00:00:30'",
-            'config_btr_dt': "'00:00:0.7'",
-            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
-            'config_Rayleigh_damping_coeff': '1.0e-6',
-            'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[iref])}
-        namelist_options.update(shared_options)
-        step.add_namelist_options(namelist_options)
-
-        stream_replacements = {
-            'output_interval': '00-00-00_10:00:00',
-            'restart_interval': '00-00-00_10:00:00'}
-        step.add_streams_file(module, 'streams.template',
-                              template_replacements=stream_replacements)
-
-        step.add_input_file(filename='../{}'.format(restart_filenames[iref]))
-        step.add_output_file(filename='../{}'.format(restart_filenames[iref + 1]))
-        self.add_step(step)
-
-        iref = iref + 1
-        #8 fourth step debug
-        step_name = 'damped_adjustment_4debug2_10h45m'
-        step = ForwardStep(test_case=self, mesh=mesh, init=init,
-                           time_integrator=time_integrator, name=step_name,
-                           subdir=step_name, get_dt_from_min_res=False)
-
-        namelist_options = {
-            'config_run_duration': "'00-00-00_00:45:00'",
-            'config_dt': "'00:00:30'",
-            'config_btr_dt': "'00:00:0.7'",
-            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
-            'config_Rayleigh_damping_coeff': '1.0e-6',
-            'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[iref])}
-        namelist_options.update(shared_options)
-        step.add_namelist_options(namelist_options)
-
-        stream_replacements = {
-            'output_interval': '00-00-00_00:45:00',
-            'restart_interval': '00-00-00_00:45:00'}
-        step.add_streams_file(module, 'streams.template',
-                              template_replacements=stream_replacements)
-
-        step.add_input_file(filename='../{}'.format(restart_filenames[iref]))
-        step.add_output_file(filename='../{}'.format(restart_filenames[iref + 1]))
-        self.add_step(step)
-
-        iref = iref + 1
-        #9 fourth step debug
-        step_name = 'damped_adjustment_4debug2_10h45m15m'
-        step = ForwardStep(test_case=self, mesh=mesh, init=init,
-                           time_integrator=time_integrator, name=step_name,
-                           subdir=step_name, get_dt_from_min_res=False)
-
-        namelist_options = {
-            'config_run_duration': "'00-00-00_00:15:00'",
-            'config_dt': "'00:00:30'",
-            'config_btr_dt': "'00:00:0.7'",
-            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
-            'config_Rayleigh_damping_coeff': '1.0e-6',
-            'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[iref])}
-        namelist_options.update(shared_options)
-        step.add_namelist_options(namelist_options)
-
-        stream_replacements = {
-            'output_interval': '00-00-00_00:00:30',
-            'restart_interval': '00-00-00_00:15:00'}
-        step.add_streams_file(module, 'streams.template',
-                              template_replacements=stream_replacements)
-
-        step.add_input_file(filename='../{}'.format(restart_filenames[iref]))
-        step.add_output_file(filename='../{}'.format(restart_filenames[iref + 1]))
-        self.add_step(step)
-
-        iref = iref + 1
-        #10 fourth step debug
-        step_name = 'damped_adjustment_4debug2_10h45m15m13h'
-        step = ForwardStep(test_case=self, mesh=mesh, init=init,
-                           time_integrator=time_integrator, name=step_name,
-                           subdir=step_name, get_dt_from_min_res=False)
-
-        namelist_options = {
-            'config_run_duration': "'00-00-00_13:00:00'",
-            'config_dt': "'00:00:30'",
-            'config_btr_dt': "'00:00:0.7'",
-            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
-            'config_Rayleigh_damping_coeff': '1.0e-6',
-            'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[iref])}
-        namelist_options.update(shared_options)
-        step.add_namelist_options(namelist_options)
-
-        stream_replacements = {
-            'output_interval': '00-00-00_01:00:00',
-            'restart_interval': '00-00-00_01:00:00'}
-        step.add_streams_file(module, 'streams.template',
-                              template_replacements=stream_replacements)
-
-        step.add_input_file(filename='../{}'.format(restart_filenames[iref]))
-        step.add_output_file(filename='../{}'.format(restart_filenames[iref + 1]))
-        self.add_step(step)
-
-        iref = iref + 1
-        #11 fourth step debug
-        step_name = 'damped_adjustment_4debug2_18d'
-        # Last time step before crash : Doing timestep 0001-02-11_10:46:30
-        step = ForwardStep(test_case=self, mesh=mesh, init=init,
-                           time_integrator=time_integrator, name=step_name,
-                           subdir=step_name, get_dt_from_min_res=False)
-
-        namelist_options = {
-            'config_run_duration': "'00-00-18_00:00:00'",
-            'config_dt': "'00:00:30'",
-            'config_btr_dt': "'00:00:0.7'",
-            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
-            'config_Rayleigh_damping_coeff': '1.0e-6',
-            'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[iref])}
-        namelist_options.update(shared_options)
-        step.add_namelist_options(namelist_options)
-
-        stream_replacements = {
-            'output_interval': '00-00-01_00:00:00',
-            'restart_interval': '00-00-01_00:00:00'}
-        step.add_streams_file(module, 'streams.template',
-                              template_replacements=stream_replacements)
-
-        step.add_input_file(filename='../{}'.format(restart_filenames[iref]))
-        step.add_output_file(filename='../{}'.format(restart_filenames[iref + 1]))
-        self.add_step(step)
-
-        iref = iref+1
-        #12 fifth step
-        step_name = 'damped_adjustment_5'
-        step = ForwardStep(test_case=self, mesh=mesh, init=init,
-                           time_integrator=time_integrator, name=step_name,
-                           subdir=step_name, get_dt_from_min_res=False)
-
-        namelist_options = {
-            'config_run_duration': "'00-00-20_00:00:00'",
-            'config_dt': "'00:00:30'",
-            'config_btr_dt': "'00:00:0.7'",
-            'config_do_restart': '.true.',
-            'config_start_time': "'{}'".format(restart_times[iref])}
-        namelist_options.update(shared_options)
-        step.add_namelist_options(namelist_options)
-
-        stream_replacements = {
-            'output_interval': '00-00-05_00:00:00',
-            'restart_interval': '00-00-05_00:00:00'}
-        step.add_streams_file(module, 'streams.template',
-                              template_replacements=stream_replacements)
-
-        step.add_input_file(filename='../{}'.format(restart_filenames[iref]))
-        step.add_output_file(filename='../{}'.format(restart_filenames[iref+1]))
-        self.add_step(step)
-
-        iref = iref + 1
-        #13 final step
-        step_name = 'simulation'
+        step_name = 'damped_adjustment_4_original'
         step = ForwardStep(test_case=self, mesh=mesh, init=init,
                            time_integrator=time_integrator, name=step_name,
                            subdir=step_name, get_dt_from_min_res=False)
 
         namelist_options = {
             'config_run_duration': "'00-00-10_00:00:00'",
-            'config_dt': "'00:01:00'",
-            'config_btr_dt': "'00:00:1.3'",
+            'config_dt': "'00:00:30'",
+            'config_btr_dt': "'00:00:0.7'",
+            'config_implicit_bottom_drag_type': "'constant_and_rayleigh'",
+            'config_Rayleigh_damping_coeff': '1.0e-6',
             'config_do_restart': '.true.',
             'config_start_time': "'{}'".format(restart_times[iref])}
         namelist_options.update(shared_options)
         step.add_namelist_options(namelist_options)
 
         stream_replacements = {
-            'output_interval': '00-00-05_00:00:00',
-            'restart_interval': '00-00-05_00:00:00'}
+            'output_interval': '00-00-01_00:00:00',
+            'restart_interval': '00-00-01_00:00:00'}
         step.add_streams_file(module, 'streams.template',
                               template_replacements=stream_replacements)
 
         step.add_input_file(filename='../{}'.format(restart_filenames[iref]))
         step.add_output_file(filename='../{}'.format(restart_filenames[iref+1]))
-        step.add_output_file(filename='output.nc')
         self.add_step(step)
+
+
+
+
+
+
+
+
+
+
+
 
         self.restart_filenames = restart_filenames
 
