@@ -43,9 +43,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
                          '0001-03-22_00:00:00', '0001-04-01_00:00:00']
         '''
         restart_times = ['0001-01-11_00:00:00', '0001-01-21_00:00:00', '0001-01-31_00:00:00',
-                         '0001-02-10_00:00:00', '0001-02-10_09:00:00', '0001-02-11_00:00:00',
-                         '0001-02-11_10:00:00', '0001-02-11_10:45:00', '0001-02-11_11:00:00',
-                         '0001-02-12_00:00:00']
+                         '0001-02-10_00:00:00', '0001-02-20_00:00:00']
 
         restart_filenames = [
             'restarts/rst.{}.nc'.format(restart_time.replace(':', '.'))
@@ -63,7 +61,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
              'config_AM_globalStats_write_on_startup': '.true.',
              'config_use_activeTracers_surface_restoring': '.true.'}
 
-        # first step
+        #0 first step
         step_name = 'damped_adjustment_1'
         step = ForwardStep(test_case=self, mesh=mesh, init=init,
                            time_integrator=time_integrator, name=step_name,
