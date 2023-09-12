@@ -225,7 +225,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
 
         stream_replacements = {
             'output_interval': '00-00-00_10:00:00',
-            'restart_interval': '00-00-00_10:00:00'}
+            'restart_interval': '00-00-00_02:00:00'}
         step.add_streams_file(module, 'streams.template',
                               template_replacements=stream_replacements)
 
@@ -253,7 +253,7 @@ class FRIS01to60DynamicAdjustment(DynamicAdjustment):
 
         stream_replacements = {
             'output_interval': '00-00-00_00:45:00',
-            'restart_interval': '00-00-00_00:45:00'}
+            'restart_interval': '00-00-00_00:15:00'}
         step.add_streams_file(module, 'streams.template',
                               template_replacements=stream_replacements)
 
