@@ -1,0 +1,54 @@
+<streams>
+
+<stream name="sgr_data"
+        filename_template="sgr_data.nc"
+        input_interval="initial_only"
+        type="input">
+
+    <var name="subglacialRunoffFlux"/>
+</stream>
+
+<stream name="timeSeriesStatsMonthlyOutput"
+        type="output"
+        filename_template="timeSeriesStatsMonthly.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="0001-01-01_00:00:00"
+        clobber_mode="truncate"
+        io_type="pnetcdf"
+        packages="timeSeriesStatsMonthlyAMPKG"
+        output_interval="00-01-00_00:00:00">
+
+    <var_struct name="tracers"/>
+    <var_array name="landIceBoundaryLayerTracers"/>
+    <var_array name="landIceInterfaceTracers"/>
+    <var name="daysSinceStartOfSim"/>
+    <var name="layerThickness"/>
+    <var name="density"/>
+    <var name="potentialDensity"/>
+    <var name="ssh"/>
+    <var name="pressure"/>
+    <var name="normalVelocity"/>
+    <var name="velocityX"/>
+    <var name="velocityY"/>
+    <var name="vertVelocityTop"/>
+    <var name="landIceFreshwaterFlux"/>
+    <var name="landIceHeatFlux"/>
+    <var name="heatFluxToLandIce"/>
+    <var name="areaCellGlobal"/>
+    <var name="CFLNumberGlobal"/>
+    <var name="atmosphericPressure"/>
+    <var name="landIcePressure"/>
+    <var name="landIceDraft"/>
+    <var name="landIceFraction"/>
+    <var name="landIceFloatingFraction"/>
+    <var name="landIceMask"/>
+    <var name="landIceFloatingMask"/>
+    <var name="landIceFrictionVelocity"/>
+    <var name="topDrag"/>
+    <var name="topDragMagnitude"/>
+    <var name="accumulatedLandIceMass"/>
+    <var name="accumulatedLandIceHeat"/>
+    <var name="subglacialRunoffFlux"/>
+</stream>
+
+</streams>
