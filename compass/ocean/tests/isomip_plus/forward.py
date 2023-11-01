@@ -86,6 +86,10 @@ class Forward(Step):
         self.add_streams_file('compass.ocean.tests.isomip_plus',
                               'streams.forward.template',
                               template_replacements=template_replacements)
+        #SG
+        #if self.name == 'simulation':
+        #    self.add_streams_file('compass.ocean.tests.isomip_plus',
+        #                          'streams.forward.simulation')
 
         if vertical_coordinate == 'single_layer':
             self.add_namelist_file(
@@ -233,10 +237,10 @@ class Forward(Step):
                     cmap='cmo.balance', cmap_set_under='k', cmap_set_over='r')
 
         if self.name == 'simulation':
-            update_evaporation_flux(
-                in_forcing_file='forcing_data_init.nc',
-                out_forcing_file='forcing_data_updated.nc',
-                out_forcing_link='forcing_data.nc')
+        #    update_evaporation_flux(
+        #        in_forcing_file='forcing_data_init.nc',
+        #        out_forcing_file='forcing_data_updated.nc',
+        #        out_forcing_link='forcing_data.nc')
 
             replacements = {'config_do_restart': '.true.',
                             'config_start_time': "'file'"}
