@@ -87,9 +87,9 @@ class Forward(Step):
                               'streams.forward.template',
                               template_replacements=template_replacements)
         #SG
-        #if self.name == 'simulation':
-        #    self.add_streams_file('compass.ocean.tests.isomip_plus',
-        #                          'streams.forward.simulation')
+        if self.name == 'simulation':
+            self.add_streams_file('compass.ocean.tests.isomip_plus',
+                                  'streams.forward.simulation')
 
         if vertical_coordinate == 'single_layer':
             self.add_namelist_file(
