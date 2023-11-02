@@ -246,6 +246,53 @@ class Forward(Step):
                             'config_start_time': "'file'"}
             self.update_namelist_at_runtime(replacements)
 
+
+            # plot a few fields
+            plot_folder = f'{self.work_dir}/plots'
+            if os.path.exists(plot_folder):
+                shutil.rmtree(plot_folder)
+
+            dsMesh = xarray.open_dataset(os.path.join(self.work_dir,
+                                                      'init.nc'))
+            ds = xarray.open_dataset(os.path.join(self.work_dir, 'restarts/restart.0001-02-01_00.00.00.nc'))
+
+            section_y = self.config.getfloat('isomip_plus_viz', 'section_y')
+            # show progress only if we're not writing to a log file
+            show_progress = self.log_filename is None
+            plotter = MoviePlotter(inFolder=self.work_dir,
+                                   streamfunctionFolder=self.work_dir,
+                                   outFolder=plot_folder, sectionY=section_y,
+                                   dsMesh=dsMesh, ds=ds, expt=self.experiment,
+                                   showProgress=show_progress)
+
+            plotter.plot_3d_field_top_bot_section(
+                ds.temperature, nameInTitle='temperature', prefix='temp',
+                units='C', vmin=-2., vmax=1., cmap='cmo.thermal')
+
+            plotter.plot_3d_field_top_bot_section(
+                ds.salinity, nameInTitle='salinity', prefix='salin',
+                units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.haline')
+
+            ds = xarray.open_dataset(os.path.join(self.work_dir, 'timeSeriesStatsMonthly.0001-01-01.nc'))
+
+            plotter = MoviePlotter(inFolder=self.work_dir,
+                                   streamfunctionFolder=self.work_dir,
+                                   outFolder=plot_folder, sectionY=section_y,
+                                   dsMesh=dsMesh, ds=ds, expt=self.experiment,
+                                   showProgress=show_progress)
+
+            plotter.plot_3d_field_top_bot_section(
+                ds.temperature, nameInTitle='timeMonthly_avg_activeTracers_temperature', prefix='temp',
+                units='C', vmin=-2., vmax=1., cmap='cmo.thermal')
+
+            plotter.plot_3d_field_top_bot_section(
+                ds.salinity, nameInTitle='timeMonthly_avg_activeTracers_salinity', prefix='salin',
+                units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.haline')
+
+
+
+
+
     def _get_resources(self):
         """
         Get resources (ntasks, min_tasks, and openmp_threads) from the config
