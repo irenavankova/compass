@@ -853,8 +853,8 @@ class MoviePlotter(object):
                              facecolor='lightsteelblue', zorder=2)
             plt.fill_between(1e-3 * X[0, :], self.zBotSection, y2=-750,
                              facecolor='grey', zorder=1)
-            for z_index in range(1, X.shape[0]):
-                plt.plot(1e-3 * X[z_index, :], Z[z_index, :], 'k', zorder=4)
+            #for z_index in range(1, X.shape[0]):
+            #    plt.plot(1e-3 * X[z_index, :], Z[z_index, :], 'k', zorder=4)
         plt.pcolormesh(1e-3 * inX, inZ, field, vmin=vmin, vmax=vmax, cmap=cmap,
                        zorder=3)
         plt.colorbar()
