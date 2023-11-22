@@ -51,4 +51,87 @@
     <var name="subglacialRunoffFlux"/>
 </stream>
 
+<immutable_stream name="conservationCheckRestart"
+        type="input;output"
+        io_type="netcdf"
+        filename_template="analysis_members/conservationCheck.rst.$Y-$M-$D_$h.$m.$s.nc"
+        filename_interval="output_interval"
+        clobber_mode="truncate"
+        packages="conservationCheckAMPKG"
+        input_interval="none"
+        reference_time="01-01-01_00:00:00"
+        output_interval="none">
+</immutable_stream>
+
+<stream name="conservationCheckOutput"
+        type="output"
+        io_type="netcdf"
+        filename_template="analysis_members/conservationCheck.$Y-$M-$D.nc"
+        filename_interval="00-01-00_00:00:00"
+        reference_time="01-01-01_00:00:00"
+        output_interval="00-01-00_00:00:00"
+        clobber_mode="append"
+        packages="conservationCheckAMPKG">
+
+        <var name="xtime"/>
+        <var name="initialEnergy"/>
+        <var name="finalEnergy"/>
+        <var name="energyChange"/>
+        <var name="netEnergyFlux"/>
+        <var name="absoluteEnergyError"/>
+        <var name="relativeEnergyError"/>
+        <var name="initialMass"/>
+        <var name="finalMass"/>
+        <var name="massChange"/>
+        <var name="netMassFlux"/>
+        <var name="absoluteMassError"/>
+        <var name="relativeMassError"/>
+        <var name="initialSalt"/>
+        <var name="finalSalt"/>
+        <var name="saltChange"/>
+        <var name="netSaltFlux"/>
+        <var name="absoluteSaltError"/>
+        <var name="relativeSaltError"/>
+        <var name="accumulatedLatentHeatFlux"/>
+        <var name="accumulatedSensibleHeatFlux"/>
+        <var name="accumulatedLongWaveHeatFluxUp"/>
+        <var name="accumulatedLongWaveHeatFluxDown"/>
+        <var name="accumulatedShortWaveHeatFlux"/>
+        <var name="accumulatedSeaIceHeatFlux"/>
+        <var name="accumulatedMeltingSnowHeatFlux"/>
+        <var name="accumulatedMeltingIceRunoffHeatFlux"/>
+        <var name="accumulatedRemovedIceRunoffHeatFlux"/>
+        <var name="accumulatedIcebergHeatFlux"/>
+        <var name="accumulatedFrazilHeatFlux"/>
+        <var name="accumulatedLandIceHeatFlux"/>
+        <var name="accumulatedLandIceFrazilHeatFlux"/>
+        <var name="accumulatedRainTemperatureFlux"/>
+        <var name="accumulatedEvapTemperatureFlux"/>
+        <var name="accumulatedSeaIceTemperatureFlux"/>
+        <var name="accumulatedRiverRunoffTemperatureFlux"/>
+        <var name="accumulatedIcebergTemperatureFlux"/>
+        <var name="accumulatedRainFlux"/>
+        <var name="accumulatedSnowFlux"/>
+        <var name="accumulatedEvaporationFlux"/>
+        <var name="accumulatedSeaIceFlux"/>
+        <var name="accumulatedRiverRunoffFlux"/>
+        <var name="accumulatedIceRunoffFlux"/>
+        <var name="accumulatedRemovedRiverRunoffFlux"/>
+        <var name="accumulatedRemovedIceRunoffFlux"/>
+        <var name="accumulatedIcebergFlux"/>
+        <var name="accumulatedFrazilFlux"/>
+        <var name="accumulatedLandIceFlux"/>
+        <var name="accumulatedLandIceFrazilFlux"/>
+        <var name="accumulatedSeaIceSalinityFlux"/>
+        <var name="initialCarbon"/>
+        <var name="finalCarbon"/>
+        <var name="carbonChange"/>
+        <var name="netCarbonFlux"/>
+        <var name="absoluteCarbonError"/>
+        <var name="relativeCarbonError"/>
+        <var name="accumulatedAbsoluteCarbonError"/>
+        <var name="accumulatedRelativeCarbonError"/>
+</stream>
+
+
 </streams>
