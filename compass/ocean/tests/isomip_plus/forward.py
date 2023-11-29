@@ -245,7 +245,7 @@ class Forward(Step):
 
 
             # plot a few fields
-            plot_folder = f'{self.work_dir}/plots'
+            plot_folder = f'{self.work_dir}/plots/rest1'
             if os.path.exists(plot_folder):
                 shutil.rmtree(plot_folder)
 
@@ -263,12 +263,16 @@ class Forward(Step):
                                    showProgress=show_progress)
 
             plotter.plot_3d_field_top_bot_section(
-                ds.temperature, nameInTitle='temperature', prefix='temp',
+                ds.temperature, nameInTitle='temperature', prefix='t_rest',
                 units='C', vmin=-2., vmax=1., cmap='cmo.thermal')
 
             plotter.plot_3d_field_top_bot_section(
-                ds.salinity, nameInTitle='salinity', prefix='salin',
+                ds.salinity, nameInTitle='salinity', prefix='s_rest',
                 units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.haline')
+
+            plot_folder = f'{self.work_dir}/plots/month1'
+            if os.path.exists(plot_folder):
+                shutil.rmtree(plot_folder)
 
             ds = xarray.open_dataset(os.path.join(self.work_dir, 'timeSeriesStatsMonthly.0001-01-01.nc'))
 
@@ -279,11 +283,11 @@ class Forward(Step):
                                    showProgress=show_progress)
 
             plotter.plot_3d_field_top_bot_section(
-                ds.temperature, nameInTitle='timeMonthly_avg_activeTracers_temperature', prefix='temp',
+                ds.timeMonthly_avg_activeTracers_temperature, nameInTitle='timeMonthly_avg_temperature', prefix='t_mo',
                 units='C', vmin=-2., vmax=1., cmap='cmo.thermal')
 
             plotter.plot_3d_field_top_bot_section(
-                ds.salinity, nameInTitle='timeMonthly_avg_activeTracers_salinity', prefix='salin',
+                ds.timeMonthly_avg_activeTracers_salinity, nameInTitle='timeMonthly_salinity', prefix='s_mo',
                 units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.haline')
 
 
