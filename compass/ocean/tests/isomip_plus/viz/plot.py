@@ -643,6 +643,7 @@ class MoviePlotter(object):
             #    self.outFolder, prefix, prefix, tIndex + 1)
             outFileName = '{}/section{}/section{}_{}.png'.format(
                 self.outFolder, prefix, prefix,suffix)
+            print(outFileName)
             if units is None:
                 title = nameInTitle
             else:
