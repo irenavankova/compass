@@ -466,7 +466,7 @@ class MoviePlotter(object):
                                            prefix='Haney', units=None,
                                            vmin=0., vmax=8., cmap='cmo.matter')
 
-    def plot_horiz_series(self, da, nameInTitle, prefix, oceanDomain,
+    def plot_horiz_series(self, da, nameInTitle, prefix, suffix, oceanDomain,
                           units=None, vmin=None, vmax=None, cmap=None,
                           cmap_set_under=None, cmap_set_over=None,
                           cmap_scale='linear', time_indices=None,
@@ -523,8 +523,8 @@ class MoviePlotter(object):
         for tIndex in time_indices:
             self.update_date(tIndex)
             field = da.isel(Time=tIndex).values
-            outFileName = '{}/{}/{}_{:04d}.png'.format(
-                self.outFolder, prefix, prefix, tIndex + 1)
+            outFileName = '{}/{}/{}_{}.png'.format(
+                self.outFolder, prefix, prefix, suffix)
             if units is None:
                 title = nameInTitle
             else:
@@ -596,7 +596,7 @@ class MoviePlotter(object):
 
         self.plot_horiz_series(daTop,
                                'top {}'.format(nameInTitle),
-                               'top{}'.format(prefix), oceanDomain=True,
+                               'top{}'.format(prefix), suffix, oceanDomain=True,
                                vmin=vmin, vmax=vmax, cmap=cmap,
                                cmap_set_under=cmap_set_under,
                                cmap_set_over=cmap_set_over)
@@ -643,7 +643,7 @@ class MoviePlotter(object):
             #    self.outFolder, prefix, prefix, tIndex + 1)
             outFileName = '{}/section{}/section{}_{}.png'.format(
                 self.outFolder, prefix, prefix,suffix)
-            print(outFileName)
+            #print(outFileName)
             if units is None:
                 title = nameInTitle
             else:
