@@ -540,7 +540,7 @@ class MoviePlotter(object):
         if self.showProgress:
             bar.finish()
 
-    def plot_3d_field_top_bot_section(self, da, nameInTitle, prefix,
+    def plot_3d_field_top_bot_section(self, da, nameInTitle, prefix, suffix,
                                       units=None, vmin=None, vmax=None,
                                       cmap=None, cmap_set_under=None,
                                       cmap_set_over=None):
@@ -639,8 +639,10 @@ class MoviePlotter(object):
             mask = numpy.logical_not(self.sectionMask)
             field = numpy.ma.masked_array(daSection.isel(Time=tIndex).values.T,
                                           mask=mask)
-            outFileName = '{}/section{}/section{}_{:04d}.png'.format(
-                self.outFolder, prefix, prefix, tIndex + 1)
+            #outFileName = '{}/section{}/section{}_{:04d}.png'.format(
+            #    self.outFolder, prefix, prefix, tIndex + 1)
+            outFileName = '{}/section{}/section{}_{}.png'.format(
+                self.outFolder, prefix, prefix,suffix)
             if units is None:
                 title = nameInTitle
             else:
