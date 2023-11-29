@@ -619,7 +619,7 @@ class MoviePlotter(object):
 
         self.plot_horiz_series(daBot,
                                'bot {}'.format(nameInTitle),
-                               'bot{}'.format(prefix), oceanDomain=True,
+                               'bot{}'.format(prefix), suffix, oceanDomain=True,
                                vmin=vmin, vmax=vmax, cmap=cmap)
 
         daSection = da.isel(nCells=self.sectionCellIndices)
