@@ -246,7 +246,7 @@ class Forward(Step):
                             'config_start_time': "'file'"}
             self.update_namelist_at_runtime(replacements)
 
-
+            """
             # plot a few fields
             plot_folder = f'{self.work_dir}/plots/rest1'
             if os.path.exists(plot_folder):
@@ -292,7 +292,7 @@ class Forward(Step):
             plotter.plot_3d_field_top_bot_section(
                 ds.timeMonthly_avg_activeTracers_salinity, nameInTitle='timeMonthly_salinity', prefix='s_mo',
                 units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.haline')
-
+            """
 
 
 
