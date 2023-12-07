@@ -523,8 +523,8 @@ class MoviePlotter(object):
         for tIndex in time_indices:
             self.update_date(tIndex)
             field = da.isel(Time=tIndex).values
-            outFileName = '{}/{}/{}_{}.png'.format(
-                self.outFolder, prefix, prefix, suffix)
+            outFileName = '{}/{}_{}.png'.format(
+                self.outFolder, prefix, suffix)
             if units is None:
                 title = nameInTitle
             else:
@@ -641,8 +641,8 @@ class MoviePlotter(object):
                                           mask=mask)
             #outFileName = '{}/section{}/section{}_{:04d}.png'.format(
             #    self.outFolder, prefix, prefix, tIndex + 1)
-            outFileName = '{}/section{}/section{}_{}.png'.format(
-                self.outFolder, prefix, prefix,suffix)
+            outFileName = '{}/section{}_{}.png'.format(
+                self.outFolder, prefix, suffix)
             #print(outFileName)
             if units is None:
                 title = nameInTitle
