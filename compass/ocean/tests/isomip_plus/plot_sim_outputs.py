@@ -20,9 +20,9 @@ work_dir = current_working_directory
 mesh_array = f'{work_dir}/init.nc'
 experiment = 'Ocean0'
 
-for yr in range(1):
-    yy = f'{yr+1}'.zfill(2)
-    for k in range(12):
+for yr in range(1, 1, 1):
+    yy = f'{yr}'.zfill(2)
+    for k in range(2, 2, 1):
         #Get snapshots from restart files
         mm = f'{k}'.zfill(2)
         output_array = f'{work_dir}/restarts/restart.00{yy}-{mm}-01_00.00.00.nc'
@@ -49,8 +49,8 @@ for yr in range(1):
                 ds.temperature, nameInTitle='temperature', prefix='temp', suffix=f'{yy}-{mm}',
                 units='C', vmin=-2., vmax=1., cmap='cmo.thermal')
 
-            #plotter.plot_3d_field_top_bot_section(
-            #    ds.salinity, nameInTitle='salinity', prefix='salin',
-            #    units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.haline')
+            plotter.plot_3d_field_top_bot_section(
+                ds.salinity, nameInTitle='salinity', prefix='salin', suffix=f'{yy}-{mm}',
+                units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.haline')
 
 
