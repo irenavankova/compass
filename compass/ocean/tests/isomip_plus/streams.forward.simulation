@@ -49,6 +49,8 @@
     <var name="accumulatedLandIceMass"/>
     <var name="accumulatedLandIceHeat"/>
     <var name="subglacialRunoffFlux"/>
+    <var name="vertViscTopOfCell"/>
+    <var name="kineticEnergyCell"/>
 </stream>
 
 <immutable_stream name="conservationCheckRestart"
