@@ -52,7 +52,7 @@ for yr in range(0, 2, 1):
 
             plotter.plot_3d_field_top_bot_section(
                 ds.salinity, nameInTitle='salinity', prefix='salin', suffix=f'{yy}-{mm}',
-                units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.haline')
+                units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.thermal')
 
         output_array = f'{work_dir}/timeSeriesStatsMonthly.00{yy}-{mm}-01.nc'
         if os.path.exists(output_array):
@@ -76,7 +76,7 @@ for yr in range(0, 2, 1):
             #                          True, vmin=-700, vmax=0)
             plotter.plot_3d_field_top_bot_section(
                 ds.timeMonthly_avg_potentialDensity, nameInTitle='potential density', prefix='pdens', suffix=f'{yy}-{mm}',
-                units='kg/m^3', vmin=1027., vmax=1028., cmap='cmo.thermal')
+                units='kg/m^3', vmin=1027.2, vmax=1027.8, cmap='cmo.thermal')
 
             plotter.plot_3d_field_top_bot_section(
                 ds.timeMonthly_avg_activeTracers_temperature, nameInTitle='temperature', prefix='temp', suffix=f'{yy}-{mm}',
@@ -84,7 +84,7 @@ for yr in range(0, 2, 1):
 
             plotter.plot_3d_field_top_bot_section(
                 ds.timeMonthly_avg_activeTracers_salinity, nameInTitle='salinity', prefix='salin', suffix=f'{yy}-{mm}',
-                units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.haline')
+                units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.thermal')
 
             #plotter.plot_3d_field_top_bot_section(
             #    ds.timeMonthly_avg_activeTracers_salinity, nameInTitle='salinity', prefix='salin', suffix=f'{yy}-{mm}',
