@@ -21,9 +21,9 @@ mesh_array = f'{work_dir}/init.nc'
 experiment = 'Ocean0'
 dsMesh = xarray.open_dataset(mesh_array)
 
-for yr in range(0, 2, 1):
+for yr in range(1, 3, 1):
     yy = f'{yr}'.zfill(2)
-    for k in range(1, 12, 1):
+    for k in range(1, 13, 1):
         #Get snapshots from restart files
         mm = f'{k}'.zfill(2)
         output_array = f'{work_dir}/restarts/restart.00{yy}-{mm}-01_00.00.00.nc'
