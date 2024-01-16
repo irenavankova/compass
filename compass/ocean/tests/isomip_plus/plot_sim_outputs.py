@@ -26,6 +26,7 @@ for yr in range(1, 3, 1):
     for k in range(1, 13, 1):
         #Get snapshots from restart files
         mm = f'{k}'.zfill(2)
+        '''
         output_array = f'{work_dir}/restarts/restart.00{yy}-{mm}-01_00.00.00.nc'
         if os.path.exists(output_array):
             print(output_array)
@@ -53,7 +54,7 @@ for yr in range(1, 3, 1):
             plotter.plot_3d_field_top_bot_section(
                 ds.salinity, nameInTitle='salinity', prefix='salin', suffix=f'{yy}-{mm}',
                 units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.thermal')
-
+        '''
         output_array = f'{work_dir}/timeSeriesStatsMonthly.00{yy}-{mm}-01.nc'
         if os.path.exists(output_array):
             print(output_array)
@@ -85,6 +86,18 @@ for yr in range(1, 3, 1):
             plotter.plot_3d_field_top_bot_section(
                 ds.timeMonthly_avg_activeTracers_salinity, nameInTitle='salinity', prefix='salin', suffix=f'{yy}-{mm}',
                 units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.thermal')
+
+            if 'timeMonthly_avg_kineticEnergyCell' in ds.keys():
+                plotter.plot_3d_field_top_bot_section(
+                    ds.timeMonthly_avg_kineticEnergyCell, nameInTitle='KECell', prefix='KE', suffix=f'{yy}-{mm}',
+                    units='PSU', vmin=33.8, vmax=34.7, cmap='cmo.thermal')
+
+            if 'timeMonthly_avg_landIceFreshwaterFlux' in ds.keys():
+                plotter.plot_horiz_series(
+                    ds.timeMonthly_avg_landIceFreshwaterFlux,
+                    nameInTitle='landIceFreshwaterFlux', prefix='liff', suffix=f'{yy}-{mm}', oceanDomain='True',
+                    vmin=0, vmax=1e-4,
+                    cmap_set_under='k', cmap_scale='linear')
 
             #plotter.plot_3d_field_top_bot_section(
             #    ds.timeMonthly_avg_activeTracers_salinity, nameInTitle='salinity', prefix='salin', suffix=f'{yy}-{mm}',
