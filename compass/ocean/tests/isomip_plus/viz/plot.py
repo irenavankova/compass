@@ -466,7 +466,7 @@ class MoviePlotter(object):
                                            prefix='Haney', units=None,
                                            vmin=0., vmax=8., cmap='cmo.matter')
 
-    def plot_horiz_series(self, da, nameInTitle, prefix, suffix, oceanDomain,
+    def plot_horiz_series(self, da, nameInTitle, prefix, oceanDomain,
                           units=None, vmin=None, vmax=None, cmap=None,
                           cmap_set_under=None, cmap_set_over=None,
                           cmap_scale='linear', time_indices=None,
@@ -523,8 +523,8 @@ class MoviePlotter(object):
         for tIndex in time_indices:
             self.update_date(tIndex)
             field = da.isel(Time=tIndex).values
-            outFileName = '{}/{}/{}_{}.png'.format(
-                self.outFolder, prefix, prefix, suffix)
+            outFileName = '{}/{}/{}_{:04d}.png'.format(
+                self.outFolder, prefix, prefix, tIndex + 1)
             if units is None:
                 title = nameInTitle
             else:
@@ -540,7 +540,7 @@ class MoviePlotter(object):
         if self.showProgress:
             bar.finish()
 
-    def plot_3d_field_top_bot_section(self, da, nameInTitle, prefix, suffix,
+    def plot_3d_field_top_bot_section(self, da, nameInTitle, prefix,
                                       units=None, vmin=None, vmax=None,
                                       cmap=None, cmap_set_under=None,
                                       cmap_set_over=None):
@@ -596,7 +596,7 @@ class MoviePlotter(object):
 
         self.plot_horiz_series(daTop,
                                'top {}'.format(nameInTitle),
-                               'top{}'.format(prefix), suffix, oceanDomain=True,
+                               'top{}'.format(prefix), oceanDomain=True,
                                vmin=vmin, vmax=vmax, cmap=cmap,
                                cmap_set_under=cmap_set_under,
                                cmap_set_over=cmap_set_over)
@@ -619,7 +619,7 @@ class MoviePlotter(object):
 
         self.plot_horiz_series(daBot,
                                'bot {}'.format(nameInTitle),
-                               'bot{}'.format(prefix), suffix, oceanDomain=True,
+                               'bot{}'.format(prefix), oceanDomain=True,
                                vmin=vmin, vmax=vmax, cmap=cmap)
 
         daSection = da.isel(nCells=self.sectionCellIndices)
@@ -639,11 +639,8 @@ class MoviePlotter(object):
             mask = numpy.logical_not(self.sectionMask)
             field = numpy.ma.masked_array(daSection.isel(Time=tIndex).values.T,
                                           mask=mask)
-            #outFileName = '{}/section{}/section{}_{:04d}.png'.format(
-            #    self.outFolder, prefix, prefix, tIndex + 1)
-            outFileName = '{}/{}/section{}_{}.png'.format(
-                self.outFolder, prefix, prefix, suffix)
-            #print(outFileName)
+            outFileName = '{}/section{}/section{}_{:04d}.png'.format(
+                self.outFolder, prefix, prefix, tIndex + 1)
             if units is None:
                 title = nameInTitle
             else:
@@ -856,8 +853,8 @@ class MoviePlotter(object):
                              facecolor='lightsteelblue', zorder=2)
             plt.fill_between(1e-3 * X[0, :], self.zBotSection, y2=-750,
                              facecolor='grey', zorder=1)
-            #for z_index in range(1, X.shape[0]):
-            #    plt.plot(1e-3 * X[z_index, :], Z[z_index, :], 'k', zorder=4)
+            for z_index in range(1, X.shape[0]):
+                plt.plot(1e-3 * X[z_index, :], Z[z_index, :], 'k', zorder=4)
         plt.pcolormesh(1e-3 * inX, inZ, field, vmin=vmin, vmax=vmax, cmap=cmap,
                        zorder=3)
         plt.colorbar()
