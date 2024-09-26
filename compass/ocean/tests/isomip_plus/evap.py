@@ -51,56 +51,58 @@ def update_evaporation_flux(in_forcing_file, out_forcing_file,
 
     evapArea = numpy.sum(areaCell * evapMask)
 
-    totalArea = numpy.sum(areaCell)
+    if evapArea > 0:
 
-    rho_sw = 1026.
-    cp_sw = 3.996e3
-    secPerYear = 365 * 24 * 60 * 60
+        totalArea = numpy.sum(areaCell)
 
-    sflux_factor = 1.0
-    hflux_factor = 1.0 / (rho_sw * cp_sw)
+        rho_sw = 1026.
+        cp_sw = 3.996e3
+        secPerYear = 365 * 24 * 60 * 60
 
-    Tsurf = -1.9
-    Ssurf = 33.8
+        sflux_factor = 1.0
+        hflux_factor = 1.0 / (rho_sw * cp_sw)
 
-    meanSSH0 = numpy.sum(ssh0 * evapMask * areaCell) / evapArea
+        Tsurf = -1.9
+        Ssurf = 33.8
 
-    inFile = Dataset(lastFileName, 'r')
-    ssh = inFile.variables['timeMonthly_avg_ssh'][0, :]
-    inFile.close()
-    meanSSH = numpy.sum(ssh * evapMask * areaCell) / evapArea
+        meanSSH0 = numpy.sum(ssh0 * evapMask * areaCell) / evapArea
 
-    deltaSSH = max(meanSSH - meanSSH0, 0.)
+        inFile = Dataset(lastFileName, 'r')
+        ssh = inFile.variables['timeMonthly_avg_ssh'][0, :]
+        inFile.close()
+        meanSSH = numpy.sum(ssh * evapMask * areaCell) / evapArea
 
-    # parameterize the outgoing flux as a "spillway" with the given width,
-    # chosen to be 500 m so that a 20-m excess height is dissipated in about 2
-    # months
-    spillwayWidth = 500.
-    g = 9.81
+        deltaSSH = max(meanSSH - meanSSH0, 0.)
 
-    flowRate = -spillwayWidth * numpy.sqrt(0.5 * g * deltaSSH**3)
+        # parameterize the outgoing flux as a "spillway" with the given width,
+        # chosen to be 500 m so that a 20-m excess height is dissipated in about 2
+        # months
+        spillwayWidth = 500.
+        g = 9.81
 
-    estimatedHeightChange = flowRate * 30 * 24 * 60 * 60 / totalArea
+        flowRate = -spillwayWidth * numpy.sqrt(0.5 * g * deltaSSH**3)
 
-    # evap (m/s) is only over evapArea and negative for evaporation rather than
-    # precipitation
-    meanEvapRate = flowRate / evapArea
-    evapRate = meanEvapRate * evapMask
+        estimatedHeightChange = flowRate * 30 * 24 * 60 * 60 / totalArea
 
-    evaporationFlux = evapRate * rho_sw
+        # evap (m/s) is only over evapArea and negative for evaporation rather than
+        # precipitation
+        meanEvapRate = flowRate / evapArea
+        evapRate = meanEvapRate * evapMask
 
-    print('update evap: mean sea-level increase: {} m'.format(deltaSSH))
+        evaporationFlux = evapRate * rho_sw
 
-    print('update evap: est. one-month reduction by evap: {} m'.format(
-        estimatedHeightChange))
+        print('update evap: mean sea-level increase: {} m'.format(deltaSSH))
 
-    print('update evap: evaporation rate: {} m/yr'.format(
-        meanEvapRate * secPerYear))
+        print('update evap: est. one-month reduction by evap: {} m'.format(
+            estimatedHeightChange))
 
-    evaporationFluxVar[0, :] = evaporationFlux
+        print('update evap: evaporation rate: {} m/yr'.format(
+            meanEvapRate * secPerYear))
 
-    seaIceSalinityFluxVar[0, :] = evapRate * Ssurf / sflux_factor
+        evaporationFluxVar[0, :] = evaporationFlux
 
-    seaIceHeatFluxVar[0, :] = evapRate * Tsurf / hflux_factor
+        seaIceSalinityFluxVar[0, :] = evapRate * Ssurf / sflux_factor
+
+        seaIceHeatFluxVar[0, :] = evapRate * Tsurf / hflux_factor
 
     outFile.close()
